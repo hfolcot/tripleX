@@ -1,30 +1,12 @@
 #include <iostream>
 
-void PrintIntroduction()
-{
-    std::cout << "                   ,*******              .,,****,,\n";             
-    std::cout << "                *(*//*////@(        *#**//(###((((##%#.\n";         
-    std::cout << "              .#((/*,***/*@#      (/*,**/(((//((#((((((&*\n";
-    std::cout << "             /(/**/(*..,.*@#     #,,.,,/(/**/((//////(((&(\n";      
-    std::cout << "           ,%#((//*,.**...@#    *.. .**,,*@@&((&*//((####@*\n";     
-    std::cout << "          #####((/(*,. .. @#    (  .. ...&@,    %((######@#\n";     
-    std::cout << "        ((((/////@@//*,.. @#     /&&&&&&&%*    ((########@#\n";     
-    std::cout << "      ,%####(((&@%%,...   @#                 ,#((((#####@@,\n";     
-    std::cout << "    .####(((/#@&, #....   @#              .((((((######@@*\n";      
-    std::cout << "   /%####(((@@(  .#***,,. @#            *#///////((((@@%.\n";       
-    std::cout << "  *(((((((#####((((/*.... . ../       (*. .*//(###%@@#.\n";         
-    std::cout << "  *%%%#########((*,**,, .. . .@*    (. ,,//(*,*(@@&*\n";            
-    std::cout << "  *##########(//(/*//../... ,.@*  **...,.**/(&@@(.\n";              
-    std::cout << "  *%%%####(((#((((/,,(/.**.,**@* (,**,*,*/,/(/(#####(((((&(\n";     
-    std::cout << "   ./((((((((((((#&(#*,//.@&((/./,,///**/*(/*/(((####%###&&.\n";    
-    std::cout << "                  %(**((**@#   ,/**//((//(//((//(#######%@&.\n";    
-    std::cout << "                  #//#(/*(@#   /(////((((/((((#(((#######&&.\n";    
-    std::cout << "                   .*******.     ,************************.\n";    
-    std::cout << "You are a secret agent breaking into a secure server room\n";
+void PrintIntroduction(int Difficulty)
+{ 
+    std::cout << "\n\nYou are a secret agent breaking into a LEVEL " << Difficulty << " security server room\n";
     std::cout << "You need to enter the correct code to continue...n\n";
 }
 
-void PlayGame()
+bool PlayGame(int Difficulty)
 {
 
     const int CodeA = 4;
@@ -34,7 +16,7 @@ void PlayGame()
     const int CodeSum = CodeA + CodeB + CodeC;
     const int CodeProduct = CodeA * CodeB * CodeC;
 
-    PrintIntroduction();
+    PrintIntroduction(Difficulty);
 
     //Print CodeSum and CodeProduct to the terminal
     std::cout << std::endl;
@@ -53,16 +35,30 @@ void PlayGame()
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
         std::cout << "\nYou win!\n";
+        return true;
     }
     else
     {
         std::cout << "\nYou lose!\n";
+        return false;
     }
 }
 
 int main()
 {
-    PlayGame();
+    int LevelDifficulty = 1;
+    while(true)
+    {
+        bool bLevelComplete = PlayGame(LevelDifficulty);
+        std::cin.clear();
+        std::cin.ignore();
+
+        if(bLevelComplete)
+        {
+            ++LevelDifficulty;
+        }
+    }
+    
 
     return 0;
 }
